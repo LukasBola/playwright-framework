@@ -1,0 +1,43 @@
+{
+  "terminal.integrated.fontFamily": "MesloLGS NF",
+  "gitlens.blame.toggleMode": "window",
+  "terminal.integrated.fontSize": 16,
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false
+  },
+  "workbench.preferredDarkColorTheme": "Visual Studio 2017 Light - C++",
+  "security.workspace.trust.untrustedFiles": "open",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "files.autoSave": "afterDelay",
+  "workbench.settings.applyToAllProfiles": [
+    "files.autoSave",
+    "files.autoSaveDelay"
+  ],
+  "files.autoSaveDelay": 10,
+  "workbench.colorTheme": "Quiet Light",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.largeFileOptimizations": false,
+  "workbench.iconTheme": "vscode-icons",
+  "cSpell.customDictionaries": {},
+  "locale": "en",
+  "cSpell.language": "en,pl",
+  "cSpell.dictionaries": ["polish"],
+  "git.autofetch": true,
+  "playwright.reuseBrowser": true,
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "editor.formatOnSave": true,
+  "playwright.pickLocatorCopyToClipboard": true,
+  "explorer.confirmDragAndDrop": false,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "eslint.codeActionsOnSave.rules": null,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit"
+  }
+}
