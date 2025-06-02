@@ -1,23 +1,21 @@
-import { Locator, Page } from '@playwright/test';
+import { Page } from '@playwright/test';
 
-export class HomePage {
+export class CommentsPage {
   readonly page: Page;
-  readonly exampleElement: Locator;
-
-  static readonly url = '/';
 
   constructor(page: Page) {
     this.page = page;
-    this.exampleElement = page.locator('selector');
   }
 
+  static readonly url = '/comments.html';
+
   async goto(): Promise<void> {
-    await this.page.goto(HomePage.url);
+    await this.page.goto(CommentsPage.url);
     await this.page.waitForLoadState('load');
   }
 
   get url(): string {
-    return HomePage.url;
+    return CommentsPage.url;
   }
 
   async getTitle(): Promise<string> {
