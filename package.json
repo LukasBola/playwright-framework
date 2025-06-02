@@ -18,7 +18,9 @@
     "kill:http://localhost:9323": "kill -9 $(lsof -t -i :9323)",
     "lint": "npx eslint . --max-warnings 0",
     "lint:fix": "npx eslint . --max-warnings 0 --fix",
-    "prepare": "husky"
+    "prepare": "husky",
+    "run-gad-local": "cd /Users/lukaszbola/Documents/jaktestowac/gad-gui-api-demo && npm run start",
+    "kill-gad-local": "kill -9 $(lsof -t -i :3000)"
   },
   "repository": {
     "type": "git",
