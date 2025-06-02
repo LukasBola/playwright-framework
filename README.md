@@ -23,3 +23,7 @@ When setting up Husky in a project, use the command:
 `npx husky init`
 When someone clones our repository and wants to activate Husky, they should run the command:
 `npx husky`
+
+### GAD Business requirements
+
+`https://jaktestowac.pl/lesson/pw2sb01l02/`
