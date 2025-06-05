@@ -1,7 +1,7 @@
 import { Page } from '@playwright/test';
 
 export class ArticlesPage {
-  static readonly url = '/articles.html';
+  private static readonly url = '/articles.html';
 
   readonly page: Page;
 

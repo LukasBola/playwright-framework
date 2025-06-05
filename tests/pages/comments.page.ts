@@ -7,7 +7,7 @@ export class CommentsPage {
     this.page = page;
   }
 
-  static readonly url = '/comments.html';
+  private static readonly url = '/comments.html';
 
   async goto(): Promise<void> {
     await this.page.goto(CommentsPage.url);
