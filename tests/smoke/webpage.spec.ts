@@ -15,7 +15,7 @@ test.describe('Playwright Example Tests', () => {
     // Arrange przeniesiony do beforeEach
   });
 
-  test('home page title @GAD-R01-01', async () => {
+  test('home page title @GAD-R01-01 @fast @slow', async () => {
     // Act
     await homePage.goto();
     const title = await homePage.getTitle();
