@@ -48,5 +48,4 @@ npm run test:with-tag
 
 Aby oznaczyć test tagiem, dodaj komentarz nad testem, np.:
 
-
 Więcej informacji znajdziesz w dokumentacji Playwright: https://playwright.dev/docs/test-annotations#tagging-tests
