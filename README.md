@@ -29,6 +29,7 @@ When someone clones our repository and wants to activate Husky, they should run 
 `https://jaktestowac.pl/lesson/pw2sb01l02/`
 
 ## Uruchamianie testów z tagiem w Playwright
+
 ([Oficjalna dokumentacja – Tag Tests](https://playwright.dev/docs/test-annotations#tag-tests))
 
 Aby uruchomić tylko testy oznaczone danym tagiem (np. @smoke), użyj polecenia:
