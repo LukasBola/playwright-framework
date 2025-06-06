@@ -15,7 +15,7 @@ test.describe('Playwright Example Tests', () => {
     // Arrange przeniesiony do beforeEach
   });
 
-  test('home page title', async () => {
+  test('home page title @GAD-R01-01 @fast @slow', async () => {
     // Act
     await homePage.goto();
     const title = await homePage.getTitle();
@@ -24,7 +24,8 @@ test.describe('Playwright Example Tests', () => {
     expect(title).toContain('GAD');
   });
 
-  test('articles page title', async () => {
+  // @smoke
+  test('articles page title @GAD-R01-01', async () => {
     // Act
     await articlesPage.goto();
     const title = await articlesPage.getTitle();
@@ -33,7 +34,7 @@ test.describe('Playwright Example Tests', () => {
     expect(title).toContain('Articles');
   });
 
-  test('comments page title', async () => {
+  test('comments page title @GAD-R01-02', async () => {
     // Act
     await commentsPage.goto();
     const title = await commentsPage.getTitle();

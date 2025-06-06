@@ -8,6 +8,8 @@
     "test:headed": "npx playwright test --headed",
     "test:headed:repeat-each": "npx playwright test --headed --repeat-each=5",
     "test:with-tag": "npx playwright test --grep @smoke",
+    "test:tag": "npm run test -- --grep",
+    "test:fast-and-slow": "npx playwright test --grep '(?=.*@fast)(?=.*@slow)'",
     "test:ui": "npm run test -- --ui",
     "prettier": "npx prettier --write .",
     "format:check": "npx prettier . --check '!**.ts'",

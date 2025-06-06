@@ -4,7 +4,7 @@ export class HomePage {
   readonly page: Page;
   readonly exampleElement: Locator;
 
-  static readonly url = '/';
+  private static readonly url = '/';
 
   constructor(page: Page) {
     this.page = page;
