@@ -1,7 +1,7 @@
 import { Page } from '@playwright/test';
 
 export abstract class BasePage {
-  private readonly _url = '';
+  protected readonly url: string;
 
   readonly page: Page;
 
