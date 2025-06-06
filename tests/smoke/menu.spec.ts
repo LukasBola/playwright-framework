@@ -47,7 +47,7 @@ test.describe('Gad tests', () => {
 
     // Act
     await articlesPage.goto();
-    await articlesPage.mainMenu.clickGadLink();
+    await articlesPage.mainMenu.clickGadLinkHomePage();
 
     // Assert
     expect(await homePage.getTitle()).toContain('GAD');

@@ -1,7 +1,7 @@
 import { Locator, Page, expect } from '@playwright/test';
 
 export class MainMenuComponent {
-  readonly gadLink: Locator;
+  readonly gadLinkHomePage: Locator;
   readonly openComments: Locator;
   readonly openFlashPosts: Locator;
   readonly openGames: Locator;
@@ -11,7 +11,7 @@ export class MainMenuComponent {
   readonly jakTestowacLink: Locator;
 
   constructor(page: Page) {
-    this.gadLink = page.locator(
+    this.gadLinkHomePage = page.locator(
       "//h1[contains(@class, 'nav-menu')]//a[contains(text(), 'GAD')]",
     );
     this.openComments = page.getByTestId('open-comments');
@@ -27,8 +27,8 @@ export class MainMenuComponent {
     });
   }
 
-  async clickGadLink(): Promise<void> {
-    await this.gadLink.click();
+  async clickGadLinkHomePage(): Promise<void> {
+    await this.gadLinkHomePage.click();
   }
 
   async clickOpenComments(): Promise<void> {
@@ -60,7 +60,7 @@ export class MainMenuComponent {
   }
 
   async expectGadLinkVisible(): Promise<void> {
-    await expect(this.gadLink).toBeVisible();
+    await expect(this.gadLinkHomePage).toBeVisible();
   }
 
   async expectDropdownVisible(): Promise<void> {
