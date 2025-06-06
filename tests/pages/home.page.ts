@@ -1,14 +1,11 @@
-import { Locator, Page } from '@playwright/test';
+import { BasePage } from './base.page';
+import { Page } from '@playwright/test';
 
-export class HomePage {
-  readonly page: Page;
-  readonly exampleElement: Locator;
-
-  private static readonly url = '/';
+export class HomePage extends BasePage {
+  protected static readonly url = '/';
 
   constructor(page: Page) {
-    this.page = page;
-    this.exampleElement = page.locator('selector');
+    super(page);
   }
 
   async goto(): Promise<void> {

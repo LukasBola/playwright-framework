@@ -1,12 +1,11 @@
+import { BasePage } from './base.page';
 import { Page } from '@playwright/test';
 
-export class ArticlesPage {
-  private static readonly url = '/articles.html';
-
-  readonly page: Page;
+export class ArticlesPage extends BasePage {
+  protected static readonly url = '/articles.html';
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
   }
 
   async goto(): Promise<void> {
@@ -15,7 +14,7 @@ export class ArticlesPage {
   }
 
   get url(): string {
-    return ArticlesPage.url;
+    return (this.constructor as typeof ArticlesPage).url;
   }
 
   async getTitle(): Promise<string> {

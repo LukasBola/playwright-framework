@@ -1,10 +1,9 @@
+import { BasePage } from './base.page';
 import { Page } from '@playwright/test';
 
-export class CommentsPage {
-  readonly page: Page;
-
+export class CommentsPage extends BasePage {
   constructor(page: Page) {
-    this.page = page;
+    super(page);
   }
 
   private static readonly url = '/comments.html';
