@@ -1,21 +1,19 @@
+import { MainMenuComponent } from '../components/main-menu.component';
+import { BasePage } from './base.page';
 import { Page } from '@playwright/test';
 
-export class CommentsPage {
-  readonly page: Page;
+export class CommentsPage extends BasePage {
+  protected readonly url = '/comments.html';
+  readonly mainMenu: MainMenuComponent;
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
+    this.mainMenu = new MainMenuComponent(page);
   }
-
-  private static readonly url = '/comments.html';
 
   async goto(): Promise<void> {
-    await this.page.goto(CommentsPage.url);
+    await this.page.goto(this.url);
     await this.page.waitForLoadState('load');
-  }
-
-  get url(): string {
-    return CommentsPage.url;
   }
 
   async getTitle(): Promise<string> {

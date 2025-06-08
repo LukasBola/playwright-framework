@@ -1,23 +1,18 @@
-import { Locator, Page } from '@playwright/test';
+import { BasePage } from './base.page';
+import { Page } from '@playwright/test';
 
-export class HomePage {
-  readonly page: Page;
-  readonly exampleElement: Locator;
-
-  private static readonly url = '/';
+export class HomePage extends BasePage {
+  readonly exampleElement;
+  protected readonly url = '/';
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
     this.exampleElement = page.locator('selector');
   }
 
   async goto(): Promise<void> {
-    await this.page.goto(HomePage.url);
+    await this.page.goto(this.url);
     await this.page.waitForLoadState('load');
-  }
-
-  get url(): string {
-    return HomePage.url;
   }
 
   async getTitle(): Promise<string> {
