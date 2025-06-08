@@ -1,6 +1,6 @@
 import { MainMenuComponent } from '../components/main-menu.component';
 import { BasePage } from './base.page';
-import { Locator, Page, expect } from '@playwright/test';
+import { Locator, Page } from '@playwright/test';
 
 export class LoginPage extends BasePage {
   protected readonly url = '/login';
@@ -8,6 +8,7 @@ export class LoginPage extends BasePage {
   readonly emailInput: Locator;
   readonly passwordInput: Locator;
   readonly loginButton: Locator;
+  readonly loginErrorMessage: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -15,6 +16,7 @@ export class LoginPage extends BasePage {
     this.emailInput = page.getByRole('textbox', { name: 'Enter User Email' });
     this.passwordInput = page.getByRole('textbox', { name: 'Enter Password' });
     this.loginButton = page.getByRole('button', { name: 'LogIn' });
+    this.loginErrorMessage = page.getByTestId('login-error');
   }
 
   async goto(): Promise<void> {
@@ -37,13 +39,17 @@ export class LoginPage extends BasePage {
   }
 
   async login(email: string, password: string): Promise<void> {
-    await this.mainMenu.openLoginForm();
     await this.fillEmail(email);
     await this.fillPassword(password);
     await this.clickLoginButton();
   }
 
-  async expectLoginButtonVisible(): Promise<void> {
-    await expect(this.loginButton).toBeVisible();
+  async getTitle(): Promise<string> {
+    await this.page.waitForLoadState('load');
+    return this.page.title();
+  }
+
+  get loginError(): Locator {
+    return this.loginErrorMessage;
   }
 }
