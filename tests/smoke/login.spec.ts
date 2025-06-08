@@ -36,5 +36,6 @@ test.describe('Login Tests', () => {
       .toHaveText('Invalid username or password');
 
     expect.soft(await loginPage.getTitle()).toContain('Login');
+    await expect.soft(loginPage.page).toHaveTitle(/Login/); // Alternative way to check title
   });
 });
