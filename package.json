@@ -7,7 +7,7 @@
     "test": "npx playwright test",
     "test:headed": "npx playwright test --headed",
     "test:headed:repeat-each": "npx playwright test --headed --repeat-each=5",
-    "test:with-tag": "npx playwright test --grep @smoke",
+    "test:with-tag": "npx playwright test --grep @GAD_R01_03",
     "test:tag": "npm run test -- --grep",
     "test:fast-and-slow": "npx playwright test --grep '(?=.*@fast)(?=.*@slow)'",
     "test:ui": "npm run test -- --ui",

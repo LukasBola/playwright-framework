@@ -1,4 +1,4 @@
-import { userData } from '../../src/test-data/user.data';
+import { testUser1 } from '../../src/test-data/user.data';
 import { LoginPage } from '../pages/login.page';
 import { WelcomePage } from '../pages/welcome.page';
 import { expect, test } from '@playwright/test';
@@ -8,8 +8,8 @@ test.describe('Login Tests', () => {
     // Arrange
     const loginPage = new LoginPage(page);
     const welcomePage = new WelcomePage(page);
-    const userEmail = userData.email;
-    const userPassword = userData.password;
+    const userEmail = testUser1.email;
+    const userPassword = testUser1.password;
 
     // Act
     await loginPage.goto();
