@@ -9,6 +9,7 @@ export class MainMenuComponent {
   readonly btnDropdown: Locator;
   readonly backOfficeToolsLink: Locator;
   readonly jakTestowacLink: Locator;
+  readonly loginLink: Locator;
 
   constructor(page: Page) {
     this.gadLinkHomePage = page.locator(
@@ -25,6 +26,7 @@ export class MainMenuComponent {
     this.jakTestowacLink = page.getByRole('link', {
       name: 'Visit jakTestowac.pl',
     });
+    this.loginLink = page.getByRole('link', { name: 'Login' });
   }
 
   async clickGadLinkHomePage(): Promise<void> {
@@ -81,5 +83,10 @@ export class MainMenuComponent {
 
   async expectOpenCommentsDisabled(): Promise<void> {
     await expect(this.openComments).toBeDisabled();
+  }
+
+  async openLoginForm(): Promise<void> {
+    await this.btnDropdown.click();
+    await this.loginLink.click();
   }
 }

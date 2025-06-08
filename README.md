@@ -14,6 +14,7 @@
 - install dependencies: `npm install`
 - setup Playwright with: `npx playwright install --with-deps chromium`
 - setup husky with: `npx husky`
+- prepare local evn file: `cp .env-template .env`
 
 ### Husky
 
@@ -51,3 +52,11 @@ npm run test:with-tag
 Aby oznaczyć test tagiem, dodaj komentarz nad testem, np.:
 
 Więcej informacji znajdziesz w dokumentacji Playwright: https://playwright.dev/docs/test-annotations#tagging-tests
+
+## Instalacja dotenv
+
+Aby zainstalować dotenv do zarządzania zmiennymi środowiskowymi, użyj polecenia:
+
+```
+npm i -D dotenv
+```

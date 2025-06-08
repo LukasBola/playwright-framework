@@ -5,6 +5,7 @@ import { defineConfig, devices } from '@playwright/test';
  */
 export default defineConfig({
   testDir: './tests',
+  globalSetup: './src/global-setup.ts',
   timeout: 10_000,
   expect: {
     timeout: 10_000,
@@ -15,7 +16,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
   use: {
-    baseURL: 'http://localhost:3000',
+    baseURL: process.env.BASE_URL,
     actionTimeout: 0,
     trace: process.env.CI ? 'off' : 'on',
     video: 'retain-on-failure',
