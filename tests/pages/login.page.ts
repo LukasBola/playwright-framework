@@ -1,6 +1,6 @@
 import { MainMenuComponent } from '../components/main-menu.component';
 import { BasePage } from './base.page';
-import { Locator, Page } from '@playwright/test';
+import { Locator, Page, expect } from '@playwright/test';
 
 export class LoginPage extends BasePage {
   protected readonly url = '/login';
@@ -9,6 +9,7 @@ export class LoginPage extends BasePage {
   readonly passwordInput: Locator;
   readonly loginButton: Locator;
   readonly loginErrorMessage: Locator;
+  protected readonly pageTitle = 'Login';
 
   constructor(page: Page) {
     super(page);
@@ -51,5 +52,14 @@ export class LoginPage extends BasePage {
 
   get loginError(): Locator {
     return this.loginErrorMessage;
+  }
+
+  async waitForURL(): Promise<void> {
+    await this.page.waitForLoadState('domcontentloaded');
+    await this.page.waitForURL(new RegExp(this.fullUrl, 'i'));
+  }
+
+  async verifyPageTitle(): Promise<void> {
+    await expect(this.page).toHaveTitle(new RegExp(this.pageTitle, 'i'));
   }
 }

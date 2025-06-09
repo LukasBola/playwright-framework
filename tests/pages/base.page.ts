@@ -16,4 +16,10 @@ export abstract class BasePage {
   async goto(url: string): Promise<void> {
     await this.page.goto(url);
   }
+
+  get fullUrl(): string {
+    // Pobierz baseURL z process.env lub domyślnie pusty string
+    const base = process.env.BASE_URL || '';
+    return `${base}${this.url}`;
+  }
 }

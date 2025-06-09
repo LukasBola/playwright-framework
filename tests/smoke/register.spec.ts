@@ -1,0 +1,23 @@
+import { LoginPage } from '../pages/login.page';
+import { RegisterPage } from '../pages/register.page';
+import { expect, test } from '@playwright/test';
+
+test.describe('Register Tests', () => {
+  test('register with correct details', async ({ page }) => {
+    // Arrange
+    const registerPage = new RegisterPage(page);
+    const loginPage = new LoginPage(page);
+    const firstName = 'Jak';
+    const lastName = 'Nowaczyk';
+    const email = `jann87${new Date().getTime()}@git.com`;
+    const password = 'tests1';
+    // Act
+    await registerPage.goto();
+    await registerPage.register(firstName, lastName, email, password);
+    // Assert
+    await expect.soft(registerPage.alertPopup).toBeVisible();
+    await expect.soft(loginPage.page).toHaveURL(/login/);
+    // await loginPage.verifyPageTitle(); // Alternative way to check title
+    // await loginPage.waitForURL(); // Alternative way to wait for URL
+  });
+});
