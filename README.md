@@ -53,6 +53,29 @@ Aby oznaczyć test tagiem, dodaj komentarz nad testem, np.:
 
 Więcej informacji znajdziesz w dokumentacji Playwright: https://playwright.dev/docs/test-annotations#tagging-tests
 
+## Uruchamianie testów na różnych środowiskach
+
+Projekt obsługuje trzy środowiska:
+
+- lokalne (`local`): http://localhost:3000
+- deweloperskie (`dev`): https://dev.example.com
+- staging (`stage`): https://stage.example.com
+
+Środowisko wybierasz przez zmienną środowiskową `TEST_ENV`:
+
+```sh
+# Domyślnie (local):
+npx playwright test
+
+# Środowisko deweloperskie:
+TEST_ENV=dev npx playwright test
+
+# Środowisko staging:
+TEST_ENV=stage npx playwright test
+```
+
+Więcej informacji: [Playwright – testy na różnych środowiskach](https://playwright.info/playwright-testy-na-roznych-srodowiskach)
+
 ## Instalacja dotenv
 
 Aby zainstalować dotenv do zarządzania zmiennymi środowiskowymi, użyj polecenia:

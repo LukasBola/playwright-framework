@@ -3,6 +3,16 @@ import { defineConfig, devices } from '@playwright/test';
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
+
+const ENVIRONMENTS = {
+  local: 'http://localhost:3000',
+  dev: 'https://dev.example.com',
+  stage: 'https://stage.example.com',
+};
+
+const selectedEnv = process.env.TEST_ENV || 'local';
+const baseURL = ENVIRONMENTS[selectedEnv] || ENVIRONMENTS.local;
+
 export default defineConfig({
   testDir: './tests',
   globalSetup: './src/global-setup.ts',
@@ -16,7 +26,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
   use: {
-    baseURL: process.env.BASE_URL,
+    baseURL,
     actionTimeout: 0,
     trace: process.env.CI ? 'off' : 'on',
     video: 'retain-on-failure',

@@ -16,4 +16,14 @@ export abstract class BasePage {
   async goto(url: string): Promise<void> {
     await this.page.goto(url);
   }
+
+  get fullUrl(): string {
+    const base = process.env.BASE_URL || '';
+    return `${base}${this.url}`;
+  }
+
+  async waitForURL(): Promise<void> {
+    await this.page.waitForLoadState('domcontentloaded');
+    await this.page.waitForURL(new RegExp(this.fullUrl, 'i'));
+  }
 }
