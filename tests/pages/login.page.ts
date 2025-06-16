@@ -54,12 +54,7 @@ export class LoginPage extends BasePage {
     return this.loginErrorMessage;
   }
 
-  async waitForURL(): Promise<void> {
-    await this.page.waitForLoadState('domcontentloaded');
-    await this.page.waitForURL(new RegExp(this.fullUrl, 'i'));
-  }
-
   async verifyPageTitle(): Promise<void> {
-    await expect(this.page).toHaveTitle(new RegExp(this.pageTitle, 'i'));
+    await expect.soft(this.page).toHaveTitle(new RegExp(this.pageTitle, 'i'));
   }
 }

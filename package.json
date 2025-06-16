@@ -18,6 +18,7 @@
     "copy:playwright-report-from-downloads": "sh copy_last_playwright_report.sh ",
     "show-playwright-report": "npx playwright show-report $(ls -1|grep \"playwright-report*\"| head -n 1)",
     "kill:http://localhost:9323": "kill -9 $(lsof -t -i :9323)",
+    "kill:playwright-test-chromium-browsers": "pkill -f chromium",
     "lint": "npx eslint . --max-warnings 0",
     "lint:fix": "npx eslint . --max-warnings 0 --fix",
     "prepare": "husky",

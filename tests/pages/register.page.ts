@@ -77,12 +77,13 @@ export class RegisterPage extends BasePage {
     await expect(this.alertPopup).toBeVisible();
   }
 
-  async getAlertPopupText(): Promise<string> {
-    return (await this.alertPopup.textContent()) ?? '';
+  async expectAlertPopupMessage(expectedMessage: string): Promise<void> {
+    await this.expectAlertPopupVisible();
+    await expect.soft(this.alertPopup).toHaveText(expectedMessage);
   }
 
-  async waitForUrl(): Promise<void> {
-    await this.page.waitForURL(this.url);
+  async getAlertPopupText(): Promise<string> {
+    return (await this.alertPopup.textContent()) ?? '';
   }
 
   get firstName(): Locator {
@@ -100,7 +101,7 @@ export class RegisterPage extends BasePage {
   get registerBtn(): Locator {
     return this.registerButton;
   }
-  get alert(): Locator {
+  get alertPopupMessage(): Locator {
     return this.alertPopup;
   }
 }
