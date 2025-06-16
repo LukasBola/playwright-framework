@@ -24,6 +24,6 @@ test.describe('Register Tests', () => {
     await loginPage.waitForURL(); // Alternative way to wait for URL
     await loginPage.login(email, password);
     await welcomePage.expectWelcomeMessage(email);
-    //expect(await welcomePage.getTitle()).toContain('Welcome');
+    await welcomePage.verifyPageTitle();
   });
 });

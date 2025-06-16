@@ -4,6 +4,7 @@ import { Locator, Page, expect } from '@playwright/test';
 export class WelcomePage extends BasePage {
   readonly welcomeMessageLocator: Locator;
   protected readonly url = '/welcome';
+  protected readonly pageTitle = '🦎 GAD | Welcome';
 
   constructor(page: Page) {
     super(page);
@@ -28,5 +29,16 @@ export class WelcomePage extends BasePage {
     this.logStep(`Checking welcome message for: ${email} (start)`);
     await expect.soft(this.welcomeMessageLocator).toHaveText(`Hi ${email}!`);
     this.logStep(`Checking welcome message for: ${email} (end)`);
+  }
+
+  async verifyPageTitle(): Promise<void> {
+    const actualTitle = await this.page.title();
+    this.logStep(
+      `Verifying page title (start). Actual: '${actualTitle}', Expected: '${this.pageTitle}'`,
+    );
+    await expect.soft(this.page).toHaveTitle(new RegExp(this.pageTitle, 'i'));
+    this.logStep(
+      `Verifying page title (end). Actual: '${actualTitle}', Expected: '${this.pageTitle}'`,
+    );
   }
 }
