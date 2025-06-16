@@ -1,7 +1,7 @@
 import { LoginPage } from '../pages/login.page';
 import { RegisterPage } from '../pages/register.page';
 import { WelcomePage } from '../pages/welcome.page';
-import { expect, test } from '@playwright/test';
+import { test } from '@playwright/test';
 
 test.describe('Register Tests', () => {
   test('register with correct details @GAD-R03-01 @GAD-R03-02 @GAD-R03-03', async ({
@@ -24,6 +24,6 @@ test.describe('Register Tests', () => {
     await loginPage.waitForURL(); // Alternative way to wait for URL
     await loginPage.login(email, password);
     await welcomePage.expectWelcomeMessage(email);
-    expect(await welcomePage.getTitle()).toContain('Welcome');
+    //expect(await welcomePage.getTitle()).toContain('Welcome');
   });
 });

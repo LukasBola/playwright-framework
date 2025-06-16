@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npx playwright test",
+    "test:debug": "DEBUG=pw:api npx playwright test",
     "test:headed": "npx playwright test --headed",
     "test:headed:repeat-each": "npx playwright test --headed --repeat-each=5",
     "test:with-tag": "npx playwright test --grep @GAD_R01_03",
