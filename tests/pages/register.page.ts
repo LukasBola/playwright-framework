@@ -83,13 +83,17 @@ export class RegisterPage extends BasePage {
     email: string,
     password: string,
   ): Promise<void> {
-    this.logStep('Registering user (start)');
+    this.logStep(
+      `Registering user (start): firstName='${firstName}', lastName='${lastName}', email='${email}', password='${password}',`,
+    );
     await this.fillFirstName(firstName);
     await this.fillLastName(lastName);
     await this.fillEmail(email);
     await this.fillPassword(password);
     await this.clickRegisterButton();
-    this.logStep('Registering user (end)');
+    this.logStep(
+      `Registering user (end): firstName='${firstName}', lastName='${lastName}', email='${email}', password='${password}',`,
+    );
   }
 
   async expectRegisterButtonVisible(): Promise<void> {
