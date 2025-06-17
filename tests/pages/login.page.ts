@@ -1,3 +1,4 @@
+import { LoginUser } from '../../src/models/user.model';
 import { MainMenuComponent } from '../components/main-menu.component';
 import { BasePage } from './base.page';
 import { Locator, Page, expect } from '@playwright/test';
@@ -56,10 +57,10 @@ export class LoginPage extends BasePage {
     this.logStep('Clicking login button (end)');
   }
 
-  async login(email: string, password: string): Promise<void> {
+  async login(user: LoginUser): Promise<void> {
     this.logStep('Performing login (start)');
-    await this.fillEmail(email);
-    await this.fillPassword(password);
+    await this.fillEmail(user.email);
+    await this.fillPassword(user.password);
     await this.clickLoginButton();
     this.logStep('Performing login (end)');
   }

@@ -16,7 +16,7 @@ test.describe('Login Tests', () => {
 
     // Act
     await loginPage.goto();
-    await loginPage.login(user.email, user.password);
+    await loginPage.login(user);
 
     // Assert
     await welcomePage.expectWelcomeMessage(user.email);
@@ -26,12 +26,14 @@ test.describe('Login Tests', () => {
   test('login with incorrect password', async ({ page }) => {
     // Arrange
     const loginPage = new LoginPage(page);
-    const userEmail = testUser1.email;
-    const userPassword = 'incorrectPassword';
+    const user: LoginUser = {
+      email: testUser1.email,
+      password: 'incorrectPassword',
+    };
 
     // Act
     await loginPage.goto();
-    await loginPage.login(userEmail, userPassword);
+    await loginPage.login(user);
 
     // Assert
     await expect

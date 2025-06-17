@@ -31,7 +31,7 @@ test.describe('Register Tests', () => {
     await registerPage.expectAlertPopupMessage('User created');
     await loginPage.verifyPageTitle(); // Alternative way to check title
     await loginPage.waitForURL(); // Alternative way to wait for URL
-    await loginPage.login(user.email, user.password);
+    await loginPage.login(user);
     await welcomePage.expectWelcomeMessage(user.email);
     await welcomePage.verifyPageTitle();
   });
