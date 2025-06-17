@@ -1,3 +1,4 @@
+import { RegisterUser } from '../../src/models/user.model';
 import { MainMenuComponent } from '../components/main-menu.component';
 import { BasePage } from './base.page';
 import { Locator, Page, expect } from '@playwright/test';
@@ -77,22 +78,17 @@ export class RegisterPage extends BasePage {
     this.logStep('Clicking alert popup (end)');
   }
 
-  async register(
-    firstName: string,
-    lastName: string,
-    email: string,
-    password: string,
-  ): Promise<void> {
+  async register(user: RegisterUser): Promise<void> {
     this.logStep(
-      `Registering user (start): firstName='${firstName}', lastName='${lastName}', email='${email}', password='${password}',`,
+      `Registering user (start): firstName='${user.firstName}', lastName='${user.lastName}', email='${user.email}', password='${user.password}'`,
     );
-    await this.fillFirstName(firstName);
-    await this.fillLastName(lastName);
-    await this.fillEmail(email);
-    await this.fillPassword(password);
+    await this.fillFirstName(user.firstName);
+    await this.fillLastName(user.lastName);
+    await this.fillEmail(user.email);
+    await this.fillPassword(user.password);
     await this.clickRegisterButton();
     this.logStep(
-      `Registering user (end): firstName='${firstName}', lastName='${lastName}', email='${email}', password='${password}',`,
+      `Registering user (end): firstName='${user.firstName}', lastName='${user.lastName}', email='${user.email}', password='${user.password}'`,
     );
   }
 

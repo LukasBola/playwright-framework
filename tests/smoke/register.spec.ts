@@ -1,3 +1,4 @@
+import { RegisterUser } from '../../src/models/user.model';
 import { LoginPage } from '../pages/login.page';
 import { RegisterPage } from '../pages/register.page';
 import { WelcomePage } from '../pages/welcome.page';
@@ -12,24 +13,26 @@ test.describe('Register Tests', () => {
     const registerPage = new RegisterPage(page);
     const loginPage = new LoginPage(page);
     const welcomePage = new WelcomePage(page);
-    const now = new Date();
-    const formattedDate = now.toISOString().slice(0, 19);
-    const firstName = faker.person.firstName().replace(/[^\p{L}]/gu, '');
-    const lastName = faker.person.lastName().replace(/[^\p{L}]/gu, '');
-    const email = faker.internet.email({
-      firstName,
-      lastName: `${lastName}.${formattedDate}`,
+    const user: RegisterUser = {
+      firstName: faker.person.firstName().replace(/[^\p{L}]/gu, ''),
+      lastName: faker.person.lastName().replace(/[^\p{L}]/gu, ''),
+      email: '', // tymczasowo pusty, uzupełnimy poniżej
+      password: faker.internet.password({ length: 8, memorable: true }),
+    };
+    const formattedDate = new Date().toISOString().slice(0, 19);
+    user.email = faker.internet.email({
+      firstName: user.firstName,
+      lastName: `${user.lastName}.${formattedDate}`,
     });
-    const password = faker.internet.password({ length: 8, memorable: true });
     // Act
     await registerPage.goto();
-    await registerPage.register(firstName, lastName, email, password);
+    await registerPage.register(user);
     // Assert
     await registerPage.expectAlertPopupMessage('User created');
     await loginPage.verifyPageTitle(); // Alternative way to check title
     await loginPage.waitForURL(); // Alternative way to wait for URL
-    await loginPage.login(email, password);
-    await welcomePage.expectWelcomeMessage(email);
+    await loginPage.login(user.email, user.password);
+    await welcomePage.expectWelcomeMessage(user.email);
     await welcomePage.verifyPageTitle();
   });
 });
