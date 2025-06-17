@@ -1,3 +1,4 @@
+import { LoginUser } from '../../src/models/user.model';
 import { testUser1 } from '../../src/test-data/user.data';
 import { LoginPage } from '../pages/login.page';
 import { WelcomePage } from '../pages/welcome.page';
@@ -8,15 +9,17 @@ test.describe('Login Tests', () => {
     // Arrange
     const loginPage = new LoginPage(page);
     const welcomePage = new WelcomePage(page);
-    const userEmail = testUser1.email;
-    const userPassword = testUser1.password;
+    const user: LoginUser = {
+      email: testUser1.email,
+      password: testUser1.password,
+    };
 
     // Act
     await loginPage.goto();
-    await loginPage.login(userEmail, userPassword);
+    await loginPage.login(user.email, user.password);
 
     // Assert
-    await welcomePage.expectWelcomeMessage(userEmail);
+    await welcomePage.expectWelcomeMessage(user.email);
     expect(await welcomePage.getTitle()).toContain('Welcome');
   });
 
