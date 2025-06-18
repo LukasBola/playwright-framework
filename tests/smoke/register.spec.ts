@@ -35,4 +35,48 @@ test.describe('Register Tests', () => {
     await welcomePage.expectWelcomeMessage(user.email);
     await welcomePage.verifyPageTitle();
   });
+
+  test('not register with incorrect email format @GAD-R03-04', async ({
+    page,
+  }) => {
+    // Arrange
+    const registerPage = new RegisterPage(page);
+    const user: RegisterUser = {
+      firstName: faker.person.firstName().replace(/[^\p{L}]/gu, ''),
+      lastName: faker.person.lastName().replace(/[^\p{L}]/gu, ''),
+      email: 'invalid-email-format', // Invalid email format
+      password: faker.internet.password({ length: 8, memorable: true }),
+    };
+    const expectedEmailErrorMessage: string =
+      'Please provide a valid email address';
+
+    // Act
+    await registerPage.goto();
+    await registerPage.register(user);
+    // Assert
+    await registerPage.expectEmailErrorMessage(expectedEmailErrorMessage);
+  });
+
+  test('not register with  email not provided @GAD-R03-04', async ({
+    page,
+  }) => {
+    // Arrange
+    const registerPage = new RegisterPage(page);
+    const user: RegisterUser = {
+      firstName: faker.person.firstName().replace(/[^\p{L}]/gu, ''),
+      lastName: faker.person.lastName().replace(/[^\p{L}]/gu, ''),
+      email: 'invalid-email-format', // Invalid email format
+      password: faker.internet.password({ length: 8, memorable: true }),
+    };
+    const expectedEmailErrorMessage: string = 'This field is required';
+
+    // Act
+    await registerPage.goto();
+    await registerPage.fillFirstName(user.firstName);
+    await registerPage.fillLastName(user.lastName);
+    await registerPage.fillPassword(user.password);
+    await registerPage.clickRegisterButton();
+    // Assert
+    await registerPage.expectEmailErrorMessage(expectedEmailErrorMessage);
+  });
 });

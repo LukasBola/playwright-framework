@@ -12,6 +12,7 @@ export class RegisterPage extends BasePage {
   readonly passwordInput: Locator;
   readonly registerButton: Locator;
   readonly alertPopup: Locator;
+  readonly emailErrorMessage: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -22,6 +23,7 @@ export class RegisterPage extends BasePage {
     this.passwordInput = page.getByTestId('password-input');
     this.registerButton = page.getByTestId('register-button');
     this.alertPopup = page.getByTestId('alert-popup');
+    this.emailErrorMessage = page.locator('#octavalidate_email');
   }
 
   async goto(): Promise<void> {
@@ -109,6 +111,17 @@ export class RegisterPage extends BasePage {
     await this.expectAlertPopupVisible();
     await expect.soft(this.alertPopup).toHaveText(expectedMessage);
     this.logStep('Expecting alert popup message (end)');
+  }
+
+  async expectEmailErrorMessage(expectedMessage: string): Promise<void> {
+    this.logStep(
+      `Expecting email error message (start). Actual: '${await this.emailErrorMessage.textContent()}', Expected: '${expectedMessage}',`,
+    );
+    await expect(this.emailErrorMessage).toBeVisible();
+    await expect(this.emailErrorMessage).toHaveText(expectedMessage);
+    this.logStep(
+      `Expecting email error message (end). Actual: '${await this.emailErrorMessage.textContent()}', Expected: '${expectedMessage}',`,
+    );
   }
 
   async getAlertPopupText(): Promise<string> {
