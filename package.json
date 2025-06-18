@@ -5,9 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "npx playwright test",
+    "test:ui:debug": "npx playwright test --debug",
+    "test:debug": "DEBUG=pw:api npx playwright test",
     "test:headed": "npx playwright test --headed",
     "test:headed:repeat-each": "npx playwright test --headed --repeat-each=5",
-    "test:with-tag": "npx playwright test --grep @GAD_R01_03",
+    "test:with-tag": "npx playwright test --grep @GAD-R03-01 --repeat-each=10",
     "test:tag": "npm run test -- --grep",
     "test:fast-and-slow": "npx playwright test --grep '(?=.*@fast)(?=.*@slow)'",
     "test:ui": "npm run test -- --ui",
@@ -18,11 +20,11 @@
     "copy:playwright-report-from-downloads": "sh copy_last_playwright_report.sh ",
     "show-playwright-report": "npx playwright show-report $(ls -1|grep \"playwright-report*\"| head -n 1)",
     "kill:http://localhost:9323": "kill -9 $(lsof -t -i :9323)",
-    "kill:playwright-test-chromium-browsers": "pkill -f chromium",
+    "close:chromium-browsers": "pkill -f chromium",
     "lint": "npx eslint . --max-warnings 0",
     "lint:fix": "npx eslint . --max-warnings 0 --fix",
     "prepare": "husky",
-    "run-gad-local": "cd /Users/lukaszbola/Documents/jaktestowac/gad-gui-api-demo && npm run start",
+    "run-gad-local": "cd ~/Documents/jaktestowac/gad-gui-api-demo && npm run start",
     "kill-gad-local": "kill -9 $(lsof -t -i :3000)"
   },
   "repository": {
@@ -39,6 +41,7 @@
   "homepage": "https://github.com/LukasBola/playwright-gad-test#readme",
   "devDependencies": {
     "@eslint/js": "^9.27.0",
+    "@faker-js/faker": "^9.8.0",
     "@playwright/test": "^1.52.0",
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "@types/node": "^22.15.22",

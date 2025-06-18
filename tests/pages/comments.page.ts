@@ -12,11 +12,16 @@ export class CommentsPage extends BasePage {
   }
 
   async goto(): Promise<void> {
+    this.logStep(`Visiting URL: ${this.fullUrl} (start)`);
     await this.page.goto(this.url);
     await this.page.waitForLoadState('load');
+    this.logStep(`Visiting URL: ${this.fullUrl} (end)`);
   }
 
   async getTitle(): Promise<string> {
-    return this.page.title();
+    this.logStep('Getting page title (start)');
+    const title = await this.page.title();
+    this.logStep('Getting page title (end)');
+    return title;
   }
 }

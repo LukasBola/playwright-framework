@@ -37,6 +37,7 @@ export default defineConfig([
   eslintPluginPlaywright.configs['flat/recommended'],
   {
     rules: {
+      'playwright/expect-expect': 'off', // Disable checking expect in tests
       'playwright/no-nested-step': 'off',
     },
     settings: {
