@@ -1,8 +1,8 @@
+import { generateRegisterUser } from '../../src/factories/user.factory';
 import { RegisterUser } from '../../src/models/user.model';
 import { LoginPage } from '../pages/login.page';
 import { RegisterPage } from '../pages/register.page';
 import { WelcomePage } from '../pages/welcome.page';
-import { faker } from '@faker-js/faker';
 import { test } from '@playwright/test';
 
 test.describe('Register Tests', () => {
@@ -13,17 +13,7 @@ test.describe('Register Tests', () => {
     const registerPage = new RegisterPage(page);
     const loginPage = new LoginPage(page);
     const welcomePage = new WelcomePage(page);
-    const user: RegisterUser = {
-      firstName: faker.person.firstName().replace(/[^\p{L}]/gu, ''),
-      lastName: faker.person.lastName().replace(/[^\p{L}]/gu, ''),
-      email: '', // tymczasowo pusty, uzupełnimy poniżej
-      password: faker.internet.password({ length: 8, memorable: true }),
-    };
-    const formattedDate = new Date().toISOString().slice(0, 19);
-    user.email = faker.internet.email({
-      firstName: user.firstName,
-      lastName: `${user.lastName}.${formattedDate}`,
-    });
+    const user: RegisterUser = generateRegisterUser();
     // Act
     await registerPage.goto();
     await registerPage.register(user);
@@ -41,12 +31,8 @@ test.describe('Register Tests', () => {
   }) => {
     // Arrange
     const registerPage = new RegisterPage(page);
-    const user: RegisterUser = {
-      firstName: faker.person.firstName().replace(/[^\p{L}]/gu, ''),
-      lastName: faker.person.lastName().replace(/[^\p{L}]/gu, ''),
-      email: 'invalid-email-format', // Invalid email format
-      password: faker.internet.password({ length: 8, memorable: true }),
-    };
+    const user: RegisterUser = generateRegisterUser();
+    user.email = 'invalid-email-format'; // Invalid email format
     const expectedEmailErrorMessage: string =
       'Please provide a valid email address';
 
@@ -62,12 +48,7 @@ test.describe('Register Tests', () => {
   }) => {
     // Arrange
     const registerPage = new RegisterPage(page);
-    const user: RegisterUser = {
-      firstName: faker.person.firstName().replace(/[^\p{L}]/gu, ''),
-      lastName: faker.person.lastName().replace(/[^\p{L}]/gu, ''),
-      email: 'invalid-email-format', // Invalid email format
-      password: faker.internet.password({ length: 8, memorable: true }),
-    };
+    const user: RegisterUser = generateRegisterUser();
     const expectedEmailErrorMessage: string = 'This field is required';
 
     // Act
