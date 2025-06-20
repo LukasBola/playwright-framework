@@ -1,3 +1,4 @@
+import { AddArticleModel } from '../../src/models/article.model';
 import { LoginUser } from '../../src/models/user.model';
 import { testUser1 } from '../../src/test-data/user.data';
 import { ArticlePage } from '../pages/article.page';
@@ -20,8 +21,10 @@ test.describe('Article Tests', () => {
       email: testUser1.email,
       password: testUser1.password,
     };
-    const articleTitle = faker.lorem.sentence(3);
-    const articleBody = faker.lorem.paragraph(1);
+    const article: AddArticleModel = {
+      title: faker.lorem.sentence(3),
+      body: faker.lorem.paragraph(10),
+    };
     const articleCreationSuccessMessage = 'Article was created';
 
     // Act
@@ -29,16 +32,16 @@ test.describe('Article Tests', () => {
     await loginPage.login(user);
 
     await welcomePage.mainMenu.clickOpenArticles();
+
     await articlesPage.clickAddArticleButton();
 
-    await addArticleView.fillTitle(articleTitle);
-    await addArticleView.fillBody(articleBody);
-    await addArticleView.clickSave();
-    await addArticleView.clickAlertPopup();
+    await addArticleView.createArticle(article);
 
     // Assert
     await addArticleView.expectAlertPopupMessage(articleCreationSuccessMessage);
-    await expect.soft(articlePage.articleTitleLocator).toHaveText(articleTitle);
-    await expect.soft(articlePage.articleBodyLocator).toHaveText(articleBody);
+    await expect
+      .soft(articlePage.articleTitleLocator)
+      .toHaveText(article.title);
+    await expect.soft(articlePage.articleBodyLocator).toHaveText(article.body);
   });
 });
