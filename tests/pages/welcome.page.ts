@@ -1,13 +1,16 @@
+import { MainMenuComponent } from '../components/main-menu.component';
 import { BasePage } from './base.page';
 import { Locator, Page, expect } from '@playwright/test';
 
 export class WelcomePage extends BasePage {
   readonly welcomeMessageLocator: Locator;
+  readonly mainMenu: MainMenuComponent;
   protected readonly url = '/welcome';
   protected readonly pageTitle = '🦎 GAD | Welcome';
 
   constructor(page: Page) {
     super(page);
+    this.mainMenu = new MainMenuComponent(page);
     this.welcomeMessageLocator = page.getByTestId('hello');
   }
 
