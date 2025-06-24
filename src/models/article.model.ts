@@ -1,4 +1,4 @@
-export interface AddArticleModel {
+export interface ArticleCreationModel {
   title: string;
   body: string;
 }

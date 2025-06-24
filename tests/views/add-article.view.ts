@@ -1,4 +1,4 @@
-import { AddArticleModel } from '../../src/models/article.model';
+import { ArticleCreationModel } from '../../src/models/article.model';
 import { Locator, Page, expect } from '@playwright/test';
 
 export class AddArticleView {
@@ -51,7 +51,7 @@ export class AddArticleView {
     this.logStep(`Expecting alert popup message: '${expectedMessage}' (end)`);
   }
 
-  async createArticle(article: AddArticleModel): Promise<void> {
+  async createArticle(article: ArticleCreationModel): Promise<void> {
     this.logStep(`Creating article with title  (start)`);
     await this.fillTitle(article.title);
     await this.fillBody(article.body);
