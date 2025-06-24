@@ -16,11 +16,14 @@ test.describe('Article Tests', () => {
     const addArticleView = new AddArticleView(page);
     const articlePage = new ArticlePage(page);
     const articlesPage = new ArticlesPage(page);
+
     const user: LoginUser = {
       email: testUser1.email,
       password: testUser1.password,
     };
+
     const article = generateArticle();
+
     const articleCreationSuccessMessage = 'Article was created';
 
     // Act
@@ -51,12 +54,15 @@ test.describe('Article Tests', () => {
     const welcomePage = new WelcomePage(page);
     const addArticleView = new AddArticleView(page);
     const articlesPage = new ArticlesPage(page);
+
     const user: LoginUser = {
       email: testUser1.email,
       password: testUser1.password,
     };
+
     const article = generateArticle();
     article.title = '';
+
     const articleCreationSuccessMessage = 'Article was not created';
 
     // Act
@@ -81,12 +87,14 @@ test.describe('Article Tests', () => {
     const welcomePage = new WelcomePage(page);
     const addArticleView = new AddArticleView(page);
     const articlesPage = new ArticlesPage(page);
+
     const user: LoginUser = {
       email: testUser1.email,
       password: testUser1.password,
     };
     const article = generateArticle();
     article.body = '';
+
     const articleCreationSuccessMessage = 'Article was not created';
 
     // Act
