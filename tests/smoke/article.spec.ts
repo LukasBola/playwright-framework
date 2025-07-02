@@ -1,4 +1,5 @@
 import { generateArticle } from '../../src/factories/article.factory';
+import { ArticleCreationModel } from '../../src/models/article.model';
 import { LoginUser } from '../../src/models/user.model';
 import { testUser1 } from '../../src/test-data/user.data';
 import { ArticlePage } from '../pages/article.page';
@@ -9,31 +10,36 @@ import { AddArticleView } from '../views/add-article.view';
 import { expect, test } from '@playwright/test';
 
 test.describe('Article Tests', () => {
-  test('add article @GAD-R04-01', async ({ page }) => {
-    // Arrange
-    const loginPage = new LoginPage(page);
-    const welcomePage = new WelcomePage(page);
-    const addArticleView = new AddArticleView(page);
-    const articlePage = new ArticlePage(page);
-    const articlesPage = new ArticlesPage(page);
+  let loginPage: LoginPage;
+  let welcomePage: WelcomePage;
+  let addArticleView: AddArticleView;
+  let articlePage: ArticlePage;
+  let articlesPage: ArticlesPage;
+  let user: LoginUser;
+  let article: ArticleCreationModel;
 
-    const user: LoginUser = {
+  test.beforeEach(async ({ page }) => {
+    loginPage = new LoginPage(page);
+    welcomePage = new WelcomePage(page);
+    addArticleView = new AddArticleView(page);
+    articlePage = new ArticlePage(page);
+    articlesPage = new ArticlesPage(page);
+    user = {
       email: testUser1.email,
       password: testUser1.password,
     };
+    article = generateArticle();
+    await loginPage.goto();
+    await loginPage.login(user);
+    await welcomePage.mainMenu.clickOpenArticles();
+  });
 
-    const article = generateArticle();
-
+  test('add article @GAD-R04-01', async () => {
+    // Arrange
     const articleCreationSuccessMessage = 'Article was created';
 
     // Act
-    await loginPage.goto();
-    await loginPage.login(user);
-
-    await welcomePage.mainMenu.clickOpenArticles();
-
     await articlesPage.clickAddArticleButton();
-
     await addArticleView.createArticle(article);
 
     // Assert
@@ -46,68 +52,29 @@ test.describe('Article Tests', () => {
       .toHaveText(article.body, { useInnerText: true });
   });
 
-  test('do not create article with empty title @GAD-R04-01', async ({
-    page,
-  }) => {
+  test('do not create article with empty title @GAD-R04-01', async () => {
     // Arrange
-    const loginPage = new LoginPage(page);
-    const welcomePage = new WelcomePage(page);
-    const addArticleView = new AddArticleView(page);
-    const articlesPage = new ArticlesPage(page);
-
-    const user: LoginUser = {
-      email: testUser1.email,
-      password: testUser1.password,
-    };
-
-    const article = generateArticle();
     article.title = '';
-
-    const articleCreationSuccessMessage = 'Article was not created';
+    const articleCreationErrorMessage = 'Article was not created';
 
     // Act
-    await loginPage.goto();
-    await loginPage.login(user);
-
-    await welcomePage.mainMenu.clickOpenArticles();
-
     await articlesPage.clickAddArticleButton();
-
     await addArticleView.createArticle(article);
 
     // Assert
-    await addArticleView.expectAlertPopupMessage(articleCreationSuccessMessage);
+    await addArticleView.expectAlertPopupMessage(articleCreationErrorMessage);
   });
 
-  test('do not create article with empty body @GAD-R04-01', async ({
-    page,
-  }) => {
+  test('do not create article with empty body @GAD-R04-01', async () => {
     // Arrange
-    const loginPage = new LoginPage(page);
-    const welcomePage = new WelcomePage(page);
-    const addArticleView = new AddArticleView(page);
-    const articlesPage = new ArticlesPage(page);
-
-    const user: LoginUser = {
-      email: testUser1.email,
-      password: testUser1.password,
-    };
-    const article = generateArticle();
     article.body = '';
-
-    const articleCreationSuccessMessage = 'Article was not created';
+    const articleCreationErrorMessage = 'Article was not created';
 
     // Act
-    await loginPage.goto();
-    await loginPage.login(user);
-
-    await welcomePage.mainMenu.clickOpenArticles();
-
     await articlesPage.clickAddArticleButton();
-
     await addArticleView.createArticle(article);
 
     // Assert
-    await addArticleView.expectAlertPopupMessage(articleCreationSuccessMessage);
+    await addArticleView.expectAlertPopupMessage(articleCreationErrorMessage);
   });
 });
