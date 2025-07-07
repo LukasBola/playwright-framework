@@ -35,6 +35,12 @@ export class ArticlePage extends BasePage {
     this.logStep('Clicking article body (end)');
   }
 
+  async clickArticleByTitle(title: string): Promise<void> {
+    this.logStep(`Clicking article with title: '${title}' (start)`);
+    await this.page.getByText(title).click();
+    this.logStep(`Clicking article with title: '${title}' (end)`);
+  }
+
   async expectArticleCreatedAlert(expectedMessage: string): Promise<void> {
     await expect(this.page.getByTestId('alert-popup')).toHaveText(
       expectedMessage,
