@@ -8,7 +8,7 @@
     "test:ui:debug": "npx playwright test --debug",
     "test:debug": "DEBUG=pw:api npx playwright test",
     "test:headed": "npx playwright test --headed",
-    "test:headed:repeat-each": "npx playwright test --headed --repeat-each=5",
+    "test:headed:repeat-each": "npx playwright test --headed --repeat-each=30",
     "test:with-tag": "npx playwright test --grep @GAD-R03-01 --repeat-each=10",
     "test:tag": "npm run test -- --grep",
     "test:fast-and-slow": "npx playwright test --grep '(?=.*@fast)(?=.*@slow)'",

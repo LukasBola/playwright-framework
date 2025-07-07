@@ -52,10 +52,14 @@ export class AddArticleView {
   }
 
   async createArticle(article: ArticleCreationModel): Promise<void> {
-    this.logStep(`Creating article with title  (start)`);
+    this.logStep(
+      `Creating article with title: '${article.title}' and body: '${article.body}' (start)`,
+    );
     await this.fillTitle(article.title);
     await this.fillBody(article.body);
     await this.clickSave();
-    this.logStep(`Creating article with title (end)`);
+    this.logStep(
+      `Creating article with title: '${article.title}' and body: '${article.body}' (end)`,
+    );
   }
 }
