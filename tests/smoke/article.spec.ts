@@ -16,7 +16,6 @@ test.describe('Article Tests', () => {
   let articlePage: ArticlePage;
   let articlesPage: ArticlesPage;
   let user: LoginUser;
-  let article: ArticleCreationModel;
 
   test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
@@ -28,7 +27,6 @@ test.describe('Article Tests', () => {
       email: testUser1.email,
       password: testUser1.password,
     };
-    article = generateArticle();
     await loginPage.goto();
     await loginPage.login(user);
     await welcomePage.mainMenu.clickOpenArticles();
@@ -36,6 +34,7 @@ test.describe('Article Tests', () => {
 
   test('add article @GAD-R04-01', async () => {
     // Arrange
+    const article: ArticleCreationModel = generateArticle();
     const articleCreationSuccessMessage = 'Article was created';
 
     // Act
@@ -54,6 +53,7 @@ test.describe('Article Tests', () => {
 
   test('do not create article with empty title @GAD-R04-01', async () => {
     // Arrange
+    const article: ArticleCreationModel = generateArticle();
     article.title = '';
     const articleCreationErrorMessage = 'Article was not created';
 
@@ -67,6 +67,7 @@ test.describe('Article Tests', () => {
 
   test('do not create article with empty body @GAD-R04-01', async () => {
     // Arrange
+    const article: ArticleCreationModel = generateArticle();
     article.body = '';
     const articleCreationErrorMessage = 'Article was not created';
 
@@ -76,5 +77,39 @@ test.describe('Article Tests', () => {
 
     // Assert
     await addArticleView.expectAlertPopupMessage(articleCreationErrorMessage);
+  });
+
+  test('add article with title exceeding 128 signs @GAD-R04-02', async () => {
+    // Arrange
+    const titleLength = 129;
+    const article: ArticleCreationModel = generateArticle(titleLength);
+    const articleCreationErrorMessage = 'Article was not created';
+
+    // Act
+    await articlesPage.clickAddArticleButton();
+    await addArticleView.createArticle(article);
+
+    // Assert
+    await addArticleView.expectAlertPopupMessage(articleCreationErrorMessage);
+  });
+
+  test('add article with title NOT exceeding 128 signs @GAD-R04-02', async () => {
+    // Arrange
+    const titleLength = 128;
+    const article: ArticleCreationModel = generateArticle(titleLength);
+    const articleCreationSuccessMessage = 'Article was created';
+
+    // Act
+    await articlesPage.clickAddArticleButton();
+    await addArticleView.createArticle(article);
+
+    // Assert
+    await addArticleView.expectAlertPopupMessage(articleCreationSuccessMessage);
+    await expect
+      .soft(articlePage.articleTitleLocator)
+      .toHaveText(article.title, { useInnerText: true });
+    await expect
+      .soft(articlePage.articleBodyLocator)
+      .toHaveText(article.body, { useInnerText: true });
   });
 });
