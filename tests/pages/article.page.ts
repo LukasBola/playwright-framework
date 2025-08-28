@@ -7,12 +7,14 @@ export class ArticlePage extends BasePage {
   readonly mainMenu: MainMenuComponent;
   readonly articleTitle: Locator;
   readonly articleBody: Locator;
+  readonly deleteButton: Locator;
 
   constructor(page: Page) {
     super(page);
     this.mainMenu = new MainMenuComponent(page);
     this.articleTitle = page.getByTestId('article-title');
     this.articleBody = page.getByTestId('article-body');
+    this.deleteButton = page.getByTestId('delete');
   }
 
   get articleTitleLocator(): Locator {
@@ -45,5 +47,14 @@ export class ArticlePage extends BasePage {
     await expect(this.page.getByTestId('alert-popup')).toHaveText(
       expectedMessage,
     );
+  }
+
+  async deleteArticle(): Promise<void> {
+    this.logStep('Deleting article (start)');
+    this.page.once('dialog', async (dialog) => {
+      await dialog.accept();
+    });
+    await this.deleteButton.click();
+    this.logStep('Deleting article (end)');
   }
 }

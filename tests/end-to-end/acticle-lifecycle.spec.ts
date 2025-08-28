@@ -59,4 +59,13 @@ test.describe('Article Tests', () => {
       .soft(articlePage.articleBodyLocator)
       .toHaveText(article.body, { useInnerText: true });
   });
+
+  test('user can delete single article', async ({ page }) => {
+    // Użyj artykułu utworzonego w poprzednim teście
+    await articlePage.clickArticleByTitle(article.title);
+    await articlePage.deleteArticle();
+    await articlePage.waitForURL();
+    await expect(page.getByText(article.title)).toBeHidden();
+    // Assert
+  });
 });
