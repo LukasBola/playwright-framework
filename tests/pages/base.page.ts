@@ -29,10 +29,10 @@ export abstract class BasePage {
   }
 
   async waitForURL(): Promise<void> {
-    this.logStep('Waiting for expected URL (start)');
+    this.logStep(`Waiting for expected URL: ${this.fullUrl} (start)`);
     await this.page.waitForLoadState('domcontentloaded');
     await this.page.waitForURL(new RegExp(this.fullUrl, 'i'));
-    this.logStep('Waiting for expected URL (end)');
+    this.logStep(`Waiting for expected URL: ${this.fullUrl} (end)`);
   }
 
   protected logStep(message: string): void {

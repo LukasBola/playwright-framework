@@ -1,6 +1,5 @@
 import { generateArticle } from '../../src/factories/article.factory';
 import { ArticleCreationModel } from '../../src/models/article.model';
-import { LoginUser } from '../../src/models/user.model';
 import { testUser1 } from '../../src/test-data/user.data';
 import { ArticlePage } from '../pages/article.page';
 import { ArticlesPage } from '../pages/articles.page';
@@ -15,7 +14,6 @@ test.describe('Article Tests', () => {
   let addArticleView: AddArticleView;
   let articlePage: ArticlePage;
   let articlesPage: ArticlesPage;
-  let user: LoginUser;
 
   test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
@@ -23,13 +21,30 @@ test.describe('Article Tests', () => {
     addArticleView = new AddArticleView(page);
     articlePage = new ArticlePage(page);
     articlesPage = new ArticlesPage(page);
-    user = {
-      email: testUser1.email,
-      password: testUser1.password,
-    };
     await loginPage.goto();
-    await loginPage.login(user);
+    await loginPage.login(testUser1);
     await welcomePage.mainMenu.clickOpenArticles();
+  });
+
+  test('User can access single article @GAD-R04-03', async ({}) => {
+    // Arrange
+    const article: ArticleCreationModel = generateArticle();
+    const articleCreationSuccessMessage = 'Article was created';
+
+    // Act
+    await articlesPage.clickAddArticleButton();
+    await addArticleView.createArticle(article);
+    await addArticleView.expectAlertPopupMessage(articleCreationSuccessMessage);
+    await articlePage.mainMenu.clickOpenArticles();
+    await articlePage.clickArticleByTitle(article.title);
+
+    // Assert
+    await expect
+      .soft(articlePage.articleTitleLocator)
+      .toHaveText(article.title, { useInnerText: true });
+    await expect
+      .soft(articlePage.articleBodyLocator)
+      .toHaveText(article.body, { useInnerText: true });
   });
 
   test('add article @GAD-R04-01', async () => {
